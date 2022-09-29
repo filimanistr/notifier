@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>собутыльники.рф</title>
+        <meta name="description" content="Собутыльники РФ - Найти собутыльника еще никогда не было так просто"/>
+        <meta name="keywords" content="пиво москва питер купить найти друга сайчас чекушка"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/index.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="header_content">
+                <font class="logo">Меню</font>
+                <div class="login">
+                    <script async src="https://telegram.org/js/telegram-widget.js?19" 
+                        data-telegram-login="corelesshookerbot" 
+                        data-size="medium" 
+                        data-onauth="onTelegramAuth(user)" 
+                        data-request-access="write">
+                    </script>
+                    <script type="text/javascript">
+                        function onTelegramAuth(user) {
+                            axios.post('/auth/callback', user);
+                            const text = document.querySelector('.button_info');
+                            const button = document.querySelector('.find_button');
+                            text.innerHTML = 'Позвать пить пиво &#127866';
+                            button.style.backgroundColor = '#00FF7F';
+                            button.style.pointerEvents = "auto";
+                        }
+                    </script>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <h1 class="title">Найди себе компанию, по всей россии!</h1>
+            {% if id is not none %}
+                <h6 class="button_info">Позвать пить пиво &#127866</h6>
+            {% else %}
+                <style> .find_button {
+                    background-color: #6C6C6C;
+                    pointer-events: none;
+                }
+                </style>
+                <h6 class="button_info">Вы должны войти через телеграмм для того чтобы использовать эту функцию</h6>
+            {% endif %}
+
+            <a class="find_button" href="javascript:onNotify();">Найти</a>
+            <script type="text/javascript">
+                function onNotify() {
+                    axios.get('/notify');
+                }
+            </script>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                © Собутыльники 2022
+            </div>
+        </footer>
+    </body>
+</html>
+
+
