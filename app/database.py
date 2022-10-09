@@ -1,10 +1,10 @@
 import sqlite3
 
 class Database:
-    def __init__(self):
-        '''Подключаем БД'''
+    def __enter__(self):
         self.conn = sqlite3.connect('users.db')
         self.c = self.conn.cursor()
+        return self
 
     def add_user(self, user):
         self.c.execute("INSERT INTO users {} VALUES {}".format((tuple(user.keys(), )), tuple(user.values())))
@@ -22,13 +22,12 @@ class Database:
             return output
         return None
 
-    def get_users(self):
-        users = list()
-        self.c.execute("SELECT id FROM users")
+    def get_all(self, *args):
+        self.c.execute("SELECT {} FROM users".format(', '.join(str(x) for x in args)))
         data = self.c.fetchall()
         return data
 
-    def close(self):
+    def __exit__(self, exc_type, exc_value, exc_tb):
         self.c.close()
         self.conn.close()
 

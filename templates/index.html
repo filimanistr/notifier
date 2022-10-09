@@ -7,7 +7,10 @@
         <meta name="keywords" content="пиво москва питер купить найти друга сайчас чекушка"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../static/index.css">
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>                                     <!-- AXIOS -->
+        <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?apikey={{YAPI}}&lang=ru_RU" ></script>  <!-- YANDEX MAPS -->
+        <script type="text/javascript" src="../static/index.js"></script>
+        <script type="text/javascript" src="../static/map.js"></script>
     </head>
     <body>
         <header>
@@ -20,16 +23,6 @@
                         data-onauth="onTelegramAuth(user)" 
                         data-request-access="write">
                     </script>
-                    <script type="text/javascript">
-                        function onTelegramAuth(user) {
-                            axios.post('/auth/callback', user);
-                            const text = document.querySelector('.button_info');
-                            const button = document.querySelector('.find_button');
-                            text.innerHTML = 'Позвать пить пиво &#127866';
-                            button.style.backgroundColor = '#00FF7F';
-                            button.style.pointerEvents = "auto";
-                        }
-                    </script>
                 </div>
             </div>
         </header>
@@ -39,20 +32,52 @@
             {% if id is not none %}
                 <h6 class="button_info">Позвать пить пиво &#127866</h6>
             {% else %}
-                <style> .find_button {
-                    background-color: #6C6C6C;
-                    pointer-events: none;
-                }
+                <style> 
+                    .find_button {
+                        background-color: #6C6C6C;
+                        pointer-events: none;
+                    }
+                    .invite_button {
+                        outline-color: #6C6C6C;
+                        pointer-events: none;
+                    }
                 </style>
                 <h6 class="button_info">Вы должны войти через телеграмм для того чтобы использовать эту функцию</h6>
             {% endif %}
 
-            <a class="find_button" href="javascript:onNotify();">Найти</a>
-            <script type="text/javascript">
-                function onNotify() {
-                    axios.get('/notify');
-                }
-            </script>
+            <a class="find_button" href="#" onclick="onNotify();">Всех</a>
+            <input type="checkbox" id="buttonControl"/>
+            <label class="invite_button" for="buttonControl" onclick="showAdditionalInfo();">Друзей</label>
+            
+            <div class="additional_info">
+                <div class="section">
+                    <font class="section-info">Выбирайте друзей из списка: </font>
+                    <div class="scrollit">
+                        <table class="table_of_users">
+                            {% for user in users %}
+                            <tr class="user{{user.id}}" onclick="getUser('{{user.id}}');">
+                                <td>
+                                    {{ user.first_name if user.first_name is not none}}
+                                    {{ user.last_name if user.last_name is not none}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <form>
+                        <input type="text" id="input-field" class="reason-of-meeting" placeholder="Причина">
+                        <input type="text" id="input-field" class="time-of-the-meeting" placeholder="Время сбора">
+                        <input type="text" id="input-field" class="meeting-place" placeholder="Место встречи">
+                    </form>
+                </div>
+                <div class="section">
+                    <font class="section-info">Укажите точку сбора</font>
+                    <div id="map"></div>
+                </div>
+                <a class="find_button" onclick="returnUsers();">Позвать</a>
+                <font class="section-info" id="sending-status">Сообщение успешно отправленно</font>
+            </div>
+
         </main>
 
         <footer>

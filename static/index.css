@@ -55,6 +55,7 @@ main {
     line-height: 32px;
     font-weight: 400;
     margin-top:20px;
+    margin-bottom: 40px;
 }
 
 .find_button {
@@ -65,8 +66,107 @@ main {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
     font-size: 16px;
-    margin-top:40px;
+}
+
+/* Зактинкуть кнопку в wraper */
+#buttonControl {
+    display: none;
+}
+
+.invite_button {
+    outline: 3px solid #00FF7F;
+    outline-offset: -3px;
+    color: #000;
+    padding: 8px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.invite_button:hover {
+    background-color: #00FF7F;
+    color: white;
+}
+
+#buttonControl:checked + label {
+    background-color: #00FF7F;
+    color: white;
+}
+
+
+.additional_info {
+    display: none;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-color: pink; 
+}
+
+.section {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+
+.section-info {
+    font-size: clamp(18px, 2vw, 10px);
+    line-height: 32px;
+    font-weight: 400;
+}
+
+/* TABLE OF USERS */
+
+table, td, th {
+    border: 1px solid;
+    width: 100%;
+}
+
+.scrollit {
+    overflow-y:scroll;
+    max-height:250px;
+    margin-bottom: 10px;
+}
+
+.table_of_users {
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table_of_users td {
+    padding: 5px;
+}
+
+.table_of_users td:hover {
+    background-color: #00FF7F;
+    color: white;
+}
+
+/* ПРИЧИНА ВРЕМЯ СБОРА КАРТА И ФУТЕР */
+
+#sending-status {
+    display: none;
+    margin-left: 10px;
+}
+
+#input-field {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px 0 5px 0;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+}
+
+#map {
+    width: 400px;
+    height: min(50vw, 400px);
+    margin-top: 10px;
 }
 
 
