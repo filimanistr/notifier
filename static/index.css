@@ -88,9 +88,11 @@ main {
     margin-left: 5px;
 }
 
-.invite_button:hover {
-    background-color: #00FF7F;
-    color: white;
+@media (hover: hover) and (pointer: fine) {
+    .invite_button:hover {
+        background-color: #00FF7F;
+        color: white;
+    }
 }
 
 #buttonControl:checked + label {
@@ -141,9 +143,11 @@ table, td, th {
     padding: 5px;
 }
 
-.table_of_users td:hover {
-    background-color: #00FF7F;
-    color: white;
+@media (hover: hover) and (pointer: fine) {
+    .table_of_users td:hover {
+        background-color: #00FF7F;
+        color: white;
+    }
 }
 
 /* ПРИЧИНА ВРЕМЯ СБОРА КАРТА И ФУТЕР */
@@ -164,8 +168,8 @@ table, td, th {
 }
 
 #map {
-    width: 400px;
-    height: min(50vw, 400px);
+    width: min(75vw, 400px);
+    height: min(75vw, 400px);
     margin-top: 10px;
 }
 
